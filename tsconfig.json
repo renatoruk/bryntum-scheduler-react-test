@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es5",
+    "lib": [
+      "esnext",
+      "es7",
+      "es6",
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    "pretty": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "rootDirs": [
+      "src",
+      "stories"
+    ],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "stories/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "config-overrides.js",
+    "mock-server"
+  ]
+}

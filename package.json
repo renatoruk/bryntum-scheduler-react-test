@@ -1,0 +1,48 @@
+{
+  "name": "bryntum-test-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-syntax-class-properties": "^7.2.0",
+    "bryntum-scheduler": "file:./vendor/scheduler-2.0.0/build",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jest-canvas-mock": "^2.0.0-beta.1",
+    "react": "^16.5.2",
+    "react-app-rewired": "^1.6.2",
+    "react-dom": "^16.5.2",
+    "react-scripts-ts": "3.1.0",
+    "react-testing-library": "^6.1.2",
+    "ts-import-plugin": "^1.5.5"
+  },
+  "scripts": {
+    "start": "react-app-rewired start --scripts-version react-scripts-ts",
+    "build": "react-app-rewired build --scripts-version react-scripts-ts",
+    "test": "jest",
+    "eject": "react-app-rewired eject --scripts-version react-scripts-ts"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.16",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.4.17",
+    "@types/react-dom": "^16.0.9",
+    "@types/webpack-env": "^1.13.6",
+    "babel-plugin-import": "^1.11.0",
+    "enzyme": "^3.8.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.7.1",
+    "jest-transform-css": "^2.0.0",
+    "react-scripts": "^2.1.5",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.*)": "<rootDir>/src/$1"
+    }
+  },
+  "resolutions": {
+    "react-scripts-ts/jest": "^24.7.1"
+  }
+}
