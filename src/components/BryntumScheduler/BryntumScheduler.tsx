@@ -18,7 +18,8 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
             autoHeight: true,
             // tslint:disable-next-line:object-literal-sort-keys
             appendTo: this.el,
-            // viewPreset: ViewPreset.DayAndWeek,
+            // if view preset is not set and zoom event occurs before event update, there is no bug
+            viewPreset: "dayAndWeek",
             // startDate: this.props.startDate,
             // endDate: this.props.endDate,
             columns: this.props.columns,

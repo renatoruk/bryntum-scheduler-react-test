@@ -9,6 +9,8 @@ import {FooResource} from "@/model/FooResource";
 // @ts-ignore
 import {BryntumSchedulerBasic} from "@/components/BryntumSchedulerBasic";
 import {FooEvent} from "@/model/FooEvent";
+// @ts-ignore
+import {BryntumScheduler} from "@/components/BryntumScheduler/BryntumScheduler";
 
 const startDate = new Date();
 
@@ -23,6 +25,7 @@ class App extends React.Component<any, any> {
         super(props);
 
         this.state = {
+            resources: this.createResources(),
             events: this.createEvents(),
             eventsVersion: 1,
         };
@@ -34,10 +37,10 @@ class App extends React.Component<any, any> {
 
         return (
             <div className="App">
-                <BryntumSchedulerBasic
+                <BryntumScheduler
                     autoHeight={true}
                     columns={this.createColumns()}
-                    resources={this.createResources()}
+                    resources={this.state.resources}
                     resourcesVersion={1}
                     eventsVersion={this.state.eventsVersion}
                     features={{tree: true}}
@@ -58,6 +61,7 @@ class App extends React.Component<any, any> {
         this.setState({
             eventsVersion: this.state.eventsVersion + 1,
             events: this.createEvents(),
+            resources: this.createResources(),
         });
     }
 

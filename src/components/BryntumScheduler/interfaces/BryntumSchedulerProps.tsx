@@ -8,4 +8,5 @@ export interface BryntumSchedulerProps {
     features?: {
         [key: string]: any;
     }
+    [key: string]: any;
 }
