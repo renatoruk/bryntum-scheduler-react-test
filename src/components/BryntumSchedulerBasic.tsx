@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as React from "react";
 // UMD bundle is used to support IE11 browser. If you don't need it just use import from 'bryntum-scheduler' instead
 import { Scheduler } from "bryntum-scheduler/scheduler.umd.js";

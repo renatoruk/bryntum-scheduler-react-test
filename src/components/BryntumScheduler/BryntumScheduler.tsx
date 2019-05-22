@@ -1,8 +1,9 @@
-import * as React from "react";
-import { Scheduler } from "bryntum-scheduler/scheduler.umd.js";
-import { BryntumSchedulerProps } from "./interfaces/BryntumSchedulerProps";
 import "bryntum-scheduler/scheduler.stockholm.css";
+import { Scheduler } from "bryntum-scheduler/scheduler.umd.js";
+import * as React from "react";
+// @ts-ignore
 import { ViewPreset } from "./enums/ViewPreset";
+import { BryntumSchedulerProps } from "./interfaces/BryntumSchedulerProps";
 
 export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
     public el: HTMLElement | null;
@@ -15,21 +16,24 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
 
         this.schedulerEngine = new Scheduler({
             autoHeight: true,
+            // tslint:disable-next-line:object-literal-sort-keys
             appendTo: this.el,
-            viewPreset: ViewPreset.DayAndWeek,
-            startDate: new Date(2018, 4, 6),
-            endDate: new Date(2018, 4, 12),
+            // viewPreset: ViewPreset.DayAndWeek,
+            // startDate: this.props.startDate,
+            // endDate: this.props.endDate,
             columns: this.props.columns,
             events: this.props.events,
             resources: this.props.resources,
+            features: this.props.features,
         });
     }
 
     public componentDidUpdate(prevProps: BryntumSchedulerProps) {
+        // @ts-ignore
         const { resources, events } = this.props;
-
-        this.schedulerEngine.resources = resources;
-        this.schedulerEngine.events = events;
+        //
+        // this.schedulerEngine.resources = resources;
+        this.schedulerEngine.eventStore.data = events;
     }
 
     public componentWillUnmount() {

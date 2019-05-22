@@ -1,3 +1,4 @@
+/* tslint:disable:object-literal-sort-keys */
 export const events = [
     {
         id        : 1,
