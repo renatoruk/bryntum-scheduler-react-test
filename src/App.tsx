@@ -20,6 +20,9 @@ const addDate = (num: number) => {
 
 const endDate = addDate(5);
 
+let events: FooEvent[] = [];
+let resources: FooResource[] = [];
+
 class App extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -35,10 +38,18 @@ class App extends React.Component<any, any> {
 
     public render() {
 
+        console.log(this.state.events);
+        console.log(this.state.resources);
+
+        console.log(JSON.stringify(resources) === JSON.stringify(this.state.resources));
+        console.log(JSON.stringify(events) === JSON.stringify(this.state.events));
+
+        events = this.state.events;
+        resources = this.state.resources;
         return (
             <div className="App">
                 <BryntumScheduler
-                    autoHeight={true}
+                    height={window.innerHeight - 200}
                     columns={this.createColumns()}
                     resources={this.state.resources}
                     resourcesVersion={1}
@@ -55,29 +66,14 @@ class App extends React.Component<any, any> {
     }
 
     updateEvents() {
-        // this.setState({
-        //     events: [],
-        // });
+        const newEvents = this.createEvents();
+        const newResources = this.createResources();
+
         this.setState({
             eventsVersion: this.state.eventsVersion + 1,
-            events: this.createEvents(),
-            resources: this.createResources(),
+            events: newEvents,
+            resources: newResources,
         });
-    }
-
-    // @ts-ignore
-    private createColumnsMain() {
-        return [
-            {
-                type: "tree",
-                text: "Employees",
-                field: "name",
-                width: "15em",
-                expandedFolderIconCls: null,
-                collapsedFolderIconCls: null,
-                leafIconCls: null,
-            }
-        ]
     }
 
     // @ts-ignore
@@ -99,19 +95,22 @@ class App extends React.Component<any, any> {
         for (let i = 0; i < 1; i++) {
             const arr = Array(10).fill(0);
             // @ts-ignore
+
             const subresources = arr.map((el, index) => {
+                const id = (i + 1) * 100 + index;
                 return {
-                    id: (i + 1) * 100 + index,
+                    id: id.toString(10),
                     name: "subresource-" + i * 10 + index
                 }
             });
 
-            const model = new FooResource({
-                id: i,
+            let model: FooResource;
+            model = new FooResource({
+                id: (i + 10).toString(10),
                 name: "resource-" + i,
-                expanded: true,
-                nestedElements: subresources,
+                foobars: subresources,
             });
+
             res.push(model);
         }
 
@@ -125,16 +124,18 @@ class App extends React.Component<any, any> {
             const arr = Array(10).fill(0);
             const subevents = arr.map((el, index) => {
                 return new FooEvent({
-                    endDate: addDate(Math.ceil(Math.random() * 50)),
-                    resourceId: (i + 1) * 100 + index,
-                    startDate,
+                    id: Math.random().toString(),
+                    dateTo: addDate(Math.ceil(Math.random() * 50)).toString(),
+                    dateFrom: startDate.toString(),
+                    bar: {
+                        id: ((i + 1) * 100 + index).toString(10)
+                    }
                 });
             });
 
             events.push(...subevents);
         }
 
-        console.log(events);
         return events;
     }
 }

@@ -15,13 +15,13 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
         }
 
         this.schedulerEngine = new Scheduler({
-            autoHeight: true,
+            height: this.props.height,
             // tslint:disable-next-line:object-literal-sort-keys
             appendTo: this.el,
             // if view preset is not set and zoom event occurs before event update, there is no bug
             viewPreset: "dayAndWeek",
-            // startDate: this.props.startDate,
-            // endDate: this.props.endDate,
+            startDate: this.props.startDate,
+            endDate: this.props.endDate,
             columns: this.props.columns,
             events: this.props.events,
             resources: this.props.resources,
@@ -33,7 +33,7 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
         // @ts-ignore
         const { resources, events } = this.props;
         //
-        // this.schedulerEngine.resources = resources;
+        this.schedulerEngine.resources = resources;
         this.schedulerEngine.eventStore.data = events;
     }
 
