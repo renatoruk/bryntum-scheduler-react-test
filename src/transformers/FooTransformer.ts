@@ -6,7 +6,8 @@ export class FooTransformer {
         return {
             ...rawFooModel,
             computedDateTo: new Date(rawFooModel.dateTo),
-            computedDateFrom: new Date(rawFooModel.dateFrom)
+            computedDateFrom: new Date(rawFooModel.dateFrom),
+            resourceId: rawFooModel.bar.id,
         }
     }
 

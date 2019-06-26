@@ -6,10 +6,6 @@ export class FooEvent extends EventModel {
     static get fields() {
         return [
             {
-                name: "resourceId",
-                dataSource: "bar.id",
-            },
-            {
                 name: "startDate",
                 dataSource: "computedDateFrom",
             },

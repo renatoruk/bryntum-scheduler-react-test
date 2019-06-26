@@ -92,14 +92,14 @@ class App extends React.Component<any, any> {
     // @ts-ignore
     private createResources() {
         const res = [];
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 10; i++) {
             const arr = Array(10).fill(0);
             // @ts-ignore
 
             const subresources = arr.map((el, index) => {
                 const id = (i + 1) * 100 + index;
                 return {
-                    id: id.toString(10),
+                    id: "sub-" + id.toString(10),
                     name: "subresource-" + i * 10 + index
                 }
             });
@@ -121,14 +121,14 @@ class App extends React.Component<any, any> {
     private createEvents() {
         const events = [];
         for (let i = 0; i < 1; i++) {
-            const arr = Array(10).fill(0);
+            const arr = Array(400).fill(0);
             const subevents = arr.map((el, index) => {
                 return new FooEvent({
                     id: Math.random().toString(),
                     dateTo: addDate(Math.ceil(Math.random() * 50)).toString(),
                     dateFrom: startDate.toString(),
                     bar: {
-                        id: ((i + 1) * 100 + index).toString(10)
+                        id: "sub-" + ((i + 1) * 10 + index).toString(10),
                     }
                 });
             });
