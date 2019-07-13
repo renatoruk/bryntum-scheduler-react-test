@@ -89,6 +89,7 @@ class App extends React.Component<any, any> {
                 return {
                     // exception gets thrown on deletion from store as the id from resource and sub-resource is the same
                     id: "resource-" + id.toString(),
+                    // id: "subresource-" + id.toString(),
                     name: "subresource-" + i * 10 + index
                 }
             });
@@ -117,7 +118,7 @@ class App extends React.Component<any, any> {
                     dateTo: addDate(Math.ceil(Math.random() * 50)).toString(),
                     dateFrom: startDate.toString(),
                     bar: {
-                        id: "sub-" + ((i + 1) * 10 + index).toString(10),
+                        id: "subresource-" + ((i + 1) + index).toString(10),
                     }
                 });
             });
