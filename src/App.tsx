@@ -20,9 +20,6 @@ const addDate = (num: number) => {
 
 const endDate = addDate(5);
 
-let events: FooEvent[] = [];
-let resources: FooResource[] = [];
-
 class App extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -37,15 +34,6 @@ class App extends React.Component<any, any> {
     }
 
     public render() {
-
-        console.log(this.state.events);
-        console.log(this.state.resources);
-
-        console.log(JSON.stringify(resources) === JSON.stringify(this.state.resources));
-        console.log(JSON.stringify(events) === JSON.stringify(this.state.events));
-
-        events = this.state.events;
-        resources = this.state.resources;
         return (
             <div className="App">
                 <BryntumScheduler
@@ -91,22 +79,23 @@ class App extends React.Component<any, any> {
 
     // @ts-ignore
     private createResources() {
+
         const res = [];
         for (let i = 0; i < 10; i++) {
             const arr = Array(10).fill(0);
-            // @ts-ignore
+            const id = (i + 1) * 100;
 
             const subresources = arr.map((el, index) => {
-                const id = (i + 1) * 100 + index;
                 return {
-                    id: "sub-" + id.toString(10),
+                    // exception gets thrown on deletion from store as the id from resource and sub-resource is the same
+                    id: "resource-" + id.toString(),
                     name: "subresource-" + i * 10 + index
                 }
             });
 
             let model: FooResource;
             model = new FooResource({
-                id: (i + 10).toString(10),
+                id: "resource-" + id.toString(),
                 name: "resource-" + i,
                 foobars: subresources,
             });

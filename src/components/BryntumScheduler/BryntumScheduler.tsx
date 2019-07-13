@@ -33,9 +33,15 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
         // @ts-ignore
         const { resources, events } = this.props;
         //
-        this.schedulerEngine.resources = resources;
-        this.schedulerEngine.eventStore.removeAll(false)
-        this.schedulerEngine.eventStore.data = events;
+
+        if (this.props.resources !== prevProps.resources) {
+            this.schedulerEngine.resourceStore.data = resources;
+        }
+
+        if (this.props.events !== prevProps.events) {
+            this.schedulerEngine.eventStore.removeAll(false)
+            this.schedulerEngine.eventStore.data = events;
+        }
     }
 
     public componentWillUnmount() {
