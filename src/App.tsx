@@ -11,16 +11,21 @@ import {BryntumSchedulerBasic} from "@/components/BryntumSchedulerBasic";
 import {FooEvent} from "@/model/FooEvent";
 // @ts-ignore
 import {BryntumScheduler} from "@/components/BryntumScheduler/BryntumScheduler";
+import {createRef} from "react";
+import {EventModel} from "bryntum-scheduler/scheduler.umd.js";
 
+// @ts-ignore
 const startDate = new Date();
 
 const addDate = (num: number) => {
     return new Date(new Date().getTime() + (num * 24 * 60 * 60 * 1000));
 };
 
+// @ts-ignore
 const endDate = addDate(5);
 
 class App extends React.Component<any, any> {
+    private ref = createRef<BryntumScheduler>();
     constructor(props: any) {
         super(props);
 
@@ -34,18 +39,25 @@ class App extends React.Component<any, any> {
     }
 
     public render() {
+        const scheduler = this.ref.current && this.ref.current.schedulerEngine;
+        let scrollToEvent;
+
+        if (scheduler) {
+            scrollToEvent = scheduler.eventStore.last as EventModel;
+        }
+
         return (
             <div className="App">
                 <BryntumScheduler
+                    ref={this.ref}
                     height={window.innerHeight - 200}
                     columns={this.createColumns()}
                     resources={this.state.resources}
                     resourcesVersion={1}
                     eventsVersion={this.state.eventsVersion}
                     features={{tree: true}}
-                    startDate={startDate}
-                    endDate={endDate}
                     events={this.state.events}
+                    scrollToEvent={scrollToEvent}
                 />
 
                 <button onClick={this.updateEvents}>update events</button>
@@ -55,12 +67,10 @@ class App extends React.Component<any, any> {
 
     updateEvents() {
         const newEvents = this.createEvents();
-        const newResources = this.createResources();
 
         this.setState({
             eventsVersion: this.state.eventsVersion + 1,
             events: newEvents,
-            resources: newResources,
         });
     }
 
@@ -81,15 +91,16 @@ class App extends React.Component<any, any> {
     private createResources() {
 
         const res = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             const arr = Array(10).fill(0);
             const id = (i + 1) * 100;
 
             const subresources = arr.map((el, index) => {
+                const subId = "subresource-" + (id + index).toString();
                 return {
                     // exception gets thrown on deletion from store as the id from resource and sub-resource is the same
-                    id: "resource-" + id.toString(),
-                    // id: "subresource-" + id.toString(),
+                    // id: "resource-" + id.toString(),
+                    id: subId,
                     name: "subresource-" + i * 10 + index
                 }
             });
@@ -115,8 +126,9 @@ class App extends React.Component<any, any> {
             const subevents = arr.map((el, index) => {
                 return new FooEvent({
                     id: Math.random().toString(),
-                    dateTo: addDate(Math.ceil(Math.random() * 50)).toString(),
-                    dateFrom: startDate.toString(),
+                    dateTo: addDate(Math.ceil(Math.random() * 500)).toString(),
+                    dateFrom: addDate(Math.ceil(Math.random() * 300)).toString(),
+                    name: "subresource-event" + index,
                     bar: {
                         id: "subresource-" + ((i + 1) + index).toString(10),
                     }

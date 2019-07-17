@@ -1,13 +1,13 @@
 import "bryntum-scheduler/scheduler.stockholm.css";
-import { Scheduler } from "bryntum-scheduler/scheduler.umd.js";
+import {Scheduler} from "bryntum-scheduler/scheduler.umd.js";
 import * as React from "react";
 // @ts-ignore
-import { ViewPreset } from "./enums/ViewPreset";
-import { BryntumSchedulerProps } from "./interfaces/BryntumSchedulerProps";
+import {ViewPreset} from "./enums/ViewPreset";
+import {BryntumSchedulerProps} from "./interfaces/BryntumSchedulerProps";
 
 export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
     public el: HTMLElement | null;
-    private schedulerEngine: Scheduler;
+    public schedulerEngine: Scheduler;
 
     public componentDidMount(): void {
         if (this.el === null) {
@@ -18,10 +18,6 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
             height: this.props.height,
             // tslint:disable-next-line:object-literal-sort-keys
             appendTo: this.el,
-            // if view preset is not set and zoom event occurs before event update, there is no bug
-            viewPreset: "dayAndWeek",
-            startDate: this.props.startDate,
-            endDate: this.props.endDate,
             columns: this.props.columns,
             events: this.props.events,
             resources: this.props.resources,
@@ -31,7 +27,7 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
 
     public componentDidUpdate(prevProps: BryntumSchedulerProps) {
         // @ts-ignore
-        const { resources, events } = this.props;
+        const {resources, events} = this.props;
         //
 
         if (this.props.resources !== prevProps.resources) {
@@ -39,8 +35,21 @@ export class BryntumScheduler extends React.Component<BryntumSchedulerProps> {
         }
 
         if (this.props.events !== prevProps.events) {
-            this.schedulerEngine.eventStore.removeAll(false)
+            this.schedulerEngine.eventStore.removeAll(false);
             this.schedulerEngine.eventStore.data = events;
+        }
+
+        if (this.props.scrollToEvent !== undefined) {
+            // @ts-ignore
+            this.schedulerEngine.scrollEventIntoView(this.props.scrollToEvent, {
+                animate: 1000,
+                highlight: true,
+            }).then(() => {
+                // @ts-ignore
+                console.log(`scrolled ${this.props.scrollToEvent.name} into view`);
+            });
+            // @ts-ignore
+            // this.schedulerEngine.selectEvent(this.props.scrollToEvent);
         }
     }
 

@@ -1,7 +1,9 @@
 // tslint:disable-next-line:interface-name
+import {EventModel} from "bryntum-scheduler/scheduler.umd.js";
+
 export interface BryntumSchedulerProps {
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date;
+    endDate?: Date;
     columns: Array<{}>;
     events: Array<{}>;
     resources: Array<{}>;
@@ -9,4 +11,7 @@ export interface BryntumSchedulerProps {
         [key: string]: any;
     }
     [key: string]: any;
+
+
+    scrollToEvent?: EventModel;
 }

@@ -1,5 +1,4 @@
 import {EventModel} from "bryntum-scheduler/scheduler.umd.js";
-import {RawFooModel} from "@/interfaces/RawFooModel";
 import {FooTransformer} from "@/transformers/FooTransformer";
 
 export class FooEvent extends EventModel {
@@ -16,7 +15,7 @@ export class FooEvent extends EventModel {
         ]
     }
 
-    constructor(rawFooModel: RawFooModel) {
+    constructor(rawFooModel: { bar: { id: string }; dateTo: string; name: string; id: string; dateFrom: string }) {
         const extendedModel = FooTransformer.getExtendedFooModel(
             rawFooModel,
         );
