@@ -14,15 +14,17 @@ import {BryntumScheduler} from "@/components/BryntumScheduler/BryntumScheduler";
 import {createRef} from "react";
 import {EventModel} from "bryntum-scheduler/scheduler.umd.js";
 
-// @ts-ignore
-const startDate = new Date();
 
 const addDate = (num: number) => {
     return new Date(new Date().getTime() + (num * 24 * 60 * 60 * 1000));
 };
 
-// @ts-ignore
-const endDate = addDate(5);
+const subtractDate = (num: number) => {
+    return new Date(new Date().getTime() - (num * 24 * 60 * 60 * 1000));
+};
+
+const startDate = subtractDate(10);
+const endDate = addDate(300);
 
 class App extends React.Component<any, any> {
     private ref = createRef<BryntumScheduler>();
@@ -56,6 +58,8 @@ class App extends React.Component<any, any> {
                     resourcesVersion={1}
                     eventsVersion={this.state.eventsVersion}
                     features={{tree: true}}
+                    startDate={startDate}
+                    endDate={endDate}
                     events={this.state.events}
                     scrollToEvent={scrollToEvent}
                 />
